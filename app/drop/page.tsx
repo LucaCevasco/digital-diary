@@ -1,6 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Code, Image, Quote, MessageCircle } from "lucide-react"
+import { Code, Image as ImageIcon, Quote, MessageCircle } from "lucide-react"
+import { DropCard } from "@/components/drop-card"
+import { drops, getDropsByType } from "@/content/drops"
 
 export default function DropPage() {
   return (
@@ -20,7 +21,7 @@ export default function DropPage() {
             <span>Thoughts</span>
           </TabsTrigger>
           <TabsTrigger value="images" className="flex items-center gap-2">
-            <Image className="h-4 w-4" />
+            <ImageIcon className="h-4 w-4" />
             <span>Images</span>
           </TabsTrigger>
           <TabsTrigger value="code" className="flex items-center gap-2">
@@ -32,85 +33,51 @@ export default function DropPage() {
             <span>Quotes</span>
           </TabsTrigger>
         </TabsList>
+
+        {/* All Drops Tab */}
         <TabsContent value="all" className="mt-6">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Thought */}
-            <Card className="glitch-border">
-              <CardContent className="p-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
-                      <MessageCircle className="h-4 w-4" />
-                      <span>Thought</span>
-                    </div>
-                    <div className="font-mono text-sm text-muted-foreground">Dec 1, 2023</div>
-                  </div>
-                  <p className="distort">Just discovered this fascinating paper on emergent properties in complex systems. Makes me wonder if consciousness itself is merely an emergent property of neural complexity.</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Image */}
-            <Card className="glitch-border">
-              <CardContent className="p-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
-                      <Image className="h-4 w-4" />
-                      <span>Image</span>
-                    </div>
-                    <div className="font-mono text-sm text-muted-foreground">Nov 29, 2023</div>
-                  </div>
-                  <div className="aspect-square w-full bg-muted glitch-image scanline"></div>
-                  <p className="text-sm text-muted-foreground">Brutalist architecture that reminds me of certain software architectures I&apos;ve worked with.</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Code */}
-            <Card className="glitch-border">
-              <CardContent className="p-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
-                      <Code className="h-4 w-4" />
-                      <span>Code</span>
-                    </div>
-                    <div className="font-mono text-sm text-muted-foreground">Nov 27, 2023</div>
-                  </div>
-                  <div className="rounded-md bg-muted p-4 scanline">
-                    <pre className="font-mono text-sm"><code>function consciousness() 
-                    return &apos;still a mystery&apos;
-                  </code></pre>
-                  </div>
-                  <p className="text-sm text-muted-foreground">If only understanding consciousness was this simple.</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Quote */}
-            <Card className="glitch-border">
-              <CardContent className="p-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
-                      <Quote className="h-4 w-4" />
-                      <span>Quote</span>
-                    </div>
-                    <div className="font-mono text-sm text-muted-foreground">Nov 25, 2023</div>
-                  </div>
-                  <blockquote className="border-l-4 pl-4 italic distort">
-                    &quot;The universe is not only stranger than we imagine, it is stranger than we can imagine.&quot;
-                  </blockquote>
-                  <p className="text-sm text-muted-foreground">— J.B.S. Haldane</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* More drops would go here */}
+            {drops.map(drop => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
           </div>
         </TabsContent>
-        {/* Other tab contents would be similar */}
+
+        {/* Thoughts Tab */}
+        <TabsContent value="thoughts" className="mt-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {getDropsByType('thought').map(drop => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Images Tab */}
+        <TabsContent value="images" className="mt-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {getDropsByType('image').map(drop => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Code Tab */}
+        <TabsContent value="code" className="mt-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {getDropsByType('code').map(drop => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Quotes Tab */}
+        <TabsContent value="quotes" className="mt-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {getDropsByType('quote').map(drop => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
+          </div>
+        </TabsContent>
       </Tabs>
     </div>
   )

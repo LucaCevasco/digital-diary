@@ -19,25 +19,35 @@ export default function MePage() {
             Problem solver at the intersection of blockchain and human experience.
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Button variant="outline" size="icon" className="rounded-full glitch-border">
-              <Github className="h-5 w-5" />
-              <span className="sr-only">GitHub</span>
+            <Button variant="outline" size="icon" className="rounded-full glitch-border" asChild>
+              <a href="https://github.com/LucaCevasco" target="_blank" rel="noopener noreferrer">
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub</span>
+              </a>
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full glitch-border">
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
+            <Button variant="outline" size="icon" className="rounded-full glitch-border" asChild>
+              <a href="https://x.com/tlzip" target="_blank" rel="noopener noreferrer">
+                <Twitter className="h-5 w-5" />
+                <span className="sr-only">Twitter</span>
+              </a>
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full glitch-border">
-              <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
+            <Button variant="outline" size="icon" className="rounded-full glitch-border" asChild>
+              <a href="https://www.linkedin.com/in/lucacevasco/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </a>
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full glitch-border">
-              <Mail className="h-5 w-5" />
-              <span className="sr-only">Email</span>
+            <Button variant="outline" size="icon" className="rounded-full glitch-border" asChild>
+              <a href="mailto:thelucazip@gmail.com">
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Email</span>
+              </a>
             </Button>
-            <Button variant="outline" className="rounded-full font-mono glitch-border">
-              <FileText className="mr-2 h-4 w-4" />
-              Resume
+            <Button variant="outline" className="rounded-full font-mono glitch-border" asChild>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <FileText className="mr-2 h-4 w-4" />
+                Resume
+              </a>
             </Button>
           </div>
         </div>

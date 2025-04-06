@@ -85,25 +85,8 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="w-full">
           <LatestDrop
-            content="Just discovered this fascinating paper on emergent properties in complex systems"
-            date="2023-12-01"
-            type="thought"
-            isGlitchy={true}
-          />
-          <LatestDrop content="/placeholder.svg?height=400&width=400" date="2023-11-29" type="image" isGlitchy={true} />
-          <LatestDrop
-            content="function consciousness() { return 'still a mystery'; }"
-            date="2023-11-27"
-            type="code"
-            isGlitchy={true}
-          />
-          <LatestDrop
-            content="'The universe is not only stranger than we imagine, it is stranger than we can imagine.' — J.B.S. Haldane"
-            date="2023-11-25"
-            type="quote"
-            isGlitchy={true}
           />
         </div>
       </section>
