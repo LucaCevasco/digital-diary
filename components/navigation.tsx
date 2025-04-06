@@ -12,6 +12,19 @@ import { ModeToggle } from "./mode-toggle"
 export default function Navigation() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isGlitching, setIsGlitching] = React.useState(false)
+
+  React.useEffect(() => {
+    // Random glitch effect on navigation
+    const glitchInterval = setInterval(() => {
+      if (Math.random() > 0.95) {
+        setIsGlitching(true)
+        setTimeout(() => setIsGlitching(false), 200)
+      }
+    }, 3000)
+
+    return () => clearInterval(glitchInterval)
+  }, [])
 
   const routes = [
     {
@@ -38,9 +51,9 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6 lg:px-8 max-w-[1400px] mx-auto">
         <div className="flex gap-6 md:gap-10">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className={`flex items-center space-x-2 ${isGlitching ? "text-glitch" : ""}`}>
             <span className="font-playfair text-xl font-bold">Digital Vanguard</span>
           </Link>
           <nav className="hidden gap-6 md:flex">
@@ -50,7 +63,7 @@ export default function Navigation() {
                 href={route.href}
                 className={cn(
                   "font-mono text-sm transition-colors hover:text-foreground/80",
-                  route.active ? "text-foreground" : "text-foreground/60",
+                  route.active ? `text-foreground ${isGlitching ? "distort" : ""}` : "text-foreground/60",
                 )}
               >
                 {route.label}
@@ -70,7 +83,7 @@ export default function Navigation() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className={isGlitching ? "glitch-border" : ""}>
               <nav className="grid gap-6 text-lg font-medium">
                 {routes.map((route) => (
                   <Link

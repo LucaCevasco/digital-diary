@@ -5,11 +5,12 @@ interface LatestDropProps {
   content: string
   date: string
   type: "thought" | "image" | "code" | "quote"
+  isGlitchy?: boolean
 }
 
-export default function LatestDrop({ content, date, type }: LatestDropProps) {
+export default function LatestDrop({ content, date, type, isGlitchy = false }: LatestDropProps) {
   return (
-    <Card>
+    <Card className={isGlitchy ? "glitch-border" : ""}>
       <CardContent className="p-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
@@ -26,19 +27,21 @@ export default function LatestDrop({ content, date, type }: LatestDropProps) {
           </div>
 
           {type === "image" ? (
-            <div className="aspect-square w-full bg-muted">
+            <div className={`aspect-square w-full bg-muted ${isGlitchy ? "glitch-image scanline" : ""}`}>
               <img src={content || "/placeholder.svg"} alt="Drop" className="h-full w-full object-cover" />
             </div>
           ) : type === "code" ? (
-            <div className="rounded-md bg-muted p-2">
+            <div className={`rounded-md bg-muted p-2 ${isGlitchy ? "scanline" : ""}`}>
               <pre className="font-mono text-xs overflow-x-auto">
                 <code>{content}</code>
               </pre>
             </div>
           ) : type === "quote" ? (
-            <blockquote className="border-l-2 pl-2 italic text-sm">{content}</blockquote>
+            <blockquote className={`border-l-2 pl-2 italic text-sm ${isGlitchy ? "distort" : ""}`}>
+              {content}
+            </blockquote>
           ) : (
-            <p className="text-sm">{content}</p>
+            <p className={`text-sm ${isGlitchy ? "distort" : ""}`}>{content}</p>
           )}
         </div>
       </CardContent>

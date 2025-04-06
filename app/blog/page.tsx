@@ -4,15 +4,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function BlogPage() {
   return (
-    <div className="container px-4 md:px-6 py-10 md:py-16 space-y-8">
-      <div className="space-y-4">
-        <h1 className="font-playfair text-4xl font-bold tracking-tighter sm:text-5xl">Blog</h1>
-        <p className="font-mono text-xl text-muted-foreground max-w-[700px]">
+    <div className="w-full px-4 md:px-6 py-10 md:py-16 space-y-8 noise">
+      <div className="space-y-4 max-w-[1400px] mx-auto">
+        <h1 className="font-playfair text-4xl font-bold tracking-tighter sm:text-5xl glitch-item" data-text="Blog">
+          Blog
+        </h1>
+        <p className="font-mono text-xl text-muted-foreground max-w-[700px] distort">
           Long-form explorations at the intersection of technology, philosophy, and human experience.
         </p>
       </div>
 
-      <Tabs defaultValue="all" className="w-full">
+      <Tabs defaultValue="all" className="w-full max-w-[1400px] mx-auto">
         <TabsList className="grid w-full grid-cols-5 font-mono">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="technology">Technology</TabsTrigger>
@@ -23,9 +25,11 @@ export default function BlogPage() {
         <TabsContent value="all" className="mt-6">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 9 }).map((_, i) => (
-              <Card key={i} className="overflow-hidden">
+              <Card key={i} className="overflow-hidden glitch-border">
                 <CardHeader className="p-0">
-                  <div className="aspect-video w-full bg-muted"></div>
+                  <div
+                    className={`aspect-video w-full bg-muted ${i % 3 === 0 ? "glitch-image" : ""} ${i % 2 === 0 ? "scanline" : ""}`}
+                  ></div>
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-2">
@@ -37,7 +41,7 @@ export default function BlogPage() {
                         day: "numeric",
                       })}
                     </div>
-                    <CardTitle className="font-playfair text-2xl">
+                    <CardTitle className={`font-playfair text-2xl ${i % 4 === 0 ? "distort" : ""}`}>
                       {
                         [
                           "The Quantum Nature of Software Design",
@@ -81,14 +85,16 @@ export default function BlogPage() {
         <TabsContent value="technology" className="mt-6">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Technology posts would go here */}
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden glitch-border">
               <CardHeader className="p-0">
-                <div className="aspect-video w-full bg-muted"></div>
+                <div className="aspect-video w-full bg-muted glitch-image"></div>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-2">
                   <div className="font-mono text-sm text-muted-foreground">Technology • December 1, 2023</div>
-                  <CardTitle className="font-playfair text-2xl">The Quantum Nature of Software Design</CardTitle>
+                  <CardTitle className="font-playfair text-2xl distort">
+                    The Quantum Nature of Software Design
+                  </CardTitle>
                   <p className="text-muted-foreground">
                     Exploring the parallels between quantum mechanics and modern software architecture
                   </p>
