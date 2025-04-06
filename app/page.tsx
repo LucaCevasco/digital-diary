@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import FeaturedPost from "@/components/featured-post"
 import LatestDrop from "@/components/latest-drop"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -11,10 +12,10 @@ export default function Home() {
           <div className="col-span-2 flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="font-playfair text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl glitch-container">
-                <span className="block glitch-item" data-text="Digital">
-                  Digital
+                <span className="block glitch-item text-3xl" data-text="Luca Cevasco">
+                  Luca Cevasco
                 </span>
-                <span className="block text-glitch">Vanguard</span>
+                <span className="block text-glitch">Digital Diary</span>
               </h1>
               <p className="font-mono text-xl text-muted-foreground max-w-[700px] distort">
                 At the intersection of code and consciousness
@@ -34,7 +35,9 @@ export default function Home() {
             </div>
           </div>
           <div className="hidden lg:block">
-            <div className="grid-pattern h-full w-full bg-muted glitch-image"></div>
+            <div className="grid-pattern h-full w-full bg-muted">
+              <Image src="/banner.png" alt="banner" width={600} height={400} />
+            </div>
           </div>
         </div>
       </section>

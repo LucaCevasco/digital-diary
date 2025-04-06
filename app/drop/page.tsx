@@ -62,7 +62,7 @@ export default function DropPage() {
                     <div className="font-mono text-sm text-muted-foreground">Nov 29, 2023</div>
                   </div>
                   <div className="aspect-square w-full bg-muted glitch-image scanline"></div>
-                  <p className="text-sm text-muted-foreground">Brutalist architecture that reminds me of certain software architectures I've worked with.</p>
+                  <p className="text-sm text-muted-foreground">Brutalist architecture that reminds me of certain software architectures I&apos;ve worked with.</p>
                 </div>
               </CardContent>
             </Card>
@@ -79,9 +79,9 @@ export default function DropPage() {
                     <div className="font-mono text-sm text-muted-foreground">Nov 27, 2023</div>
                   </div>
                   <div className="rounded-md bg-muted p-4 scanline">
-                    <pre className="font-mono text-sm"><code>function consciousness() {\
-  return 'still a mystery';
-}</code></pre>
+                    <pre className="font-mono text-sm"><code>function consciousness() 
+                    return &apos;still a mystery&apos;
+                  </code></pre>
                   </div>
                   <p className="text-sm text-muted-foreground">If only understanding consciousness was this simple.</p>
                 </div>
@@ -100,7 +100,7 @@ export default function DropPage() {
                     <div className="font-mono text-sm text-muted-foreground">Nov 25, 2023</div>
                   </div>
                   <blockquote className="border-l-4 pl-4 italic distort">
-                    "The universe is not only stranger than we imagine, it is stranger than we can imagine."
+                    &quot;The universe is not only stranger than we imagine, it is stranger than we can imagine.&quot;
                   </blockquote>
                   <p className="text-sm text-muted-foreground">— J.B.S. Haldane</p>
                 </div>

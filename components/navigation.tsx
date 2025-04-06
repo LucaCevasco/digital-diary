@@ -17,9 +17,9 @@ export default function Navigation() {
   React.useEffect(() => {
     // Random glitch effect on navigation
     const glitchInterval = setInterval(() => {
-      if (Math.random() > 0.95) {
+      if (Math.random() > 0.40) {
         setIsGlitching(true)
-        setTimeout(() => setIsGlitching(false), 200)
+        setTimeout(() => setIsGlitching(false), 2000)
       }
     }, 3000)
 
@@ -54,7 +54,7 @@ export default function Navigation() {
       <div className="flex h-16 items-center justify-between px-4 md:px-6 lg:px-8 max-w-[1400px] mx-auto">
         <div className="flex gap-6 md:gap-10">
           <Link href="/" className={`flex items-center space-x-2 ${isGlitching ? "text-glitch" : ""}`}>
-            <span className="font-playfair text-xl font-bold">Digital Vanguard</span>
+            <span className="font-playfair text-xl font-bold">Digital Diary</span>
           </Link>
           <nav className="hidden gap-6 md:flex">
             {routes.map((route) => (
