@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import FeaturedPost from "@/components/featured-post"
-import LatestDrop from "@/components/latest-drop"
+import LatestDrops from "@/components/latest-drop"
 import Image from "next/image"
+import { getFeaturedPosts } from "@/content/posts"
 
 export default function Home() {
+  const featuredPosts = getFeaturedPosts();
+  
   return (
     <div className="w-full px-4 md:px-6 space-y-16 py-10 md:py-16 noise">
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16 max-w-[1400px] mx-auto">
@@ -52,27 +55,13 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <FeaturedPost
-            title="The Quantum Nature of Software Design"
-            excerpt="Exploring the parallels between quantum mechanics and modern software architecture"
-            date="2023-11-28"
-            category="Technology"
-            isGlitchy={true}
-          />
-          <FeaturedPost
-            title="Dostoevsky in the Digital Age"
-            excerpt="What would the great Russian novelist make of our hyperconnected world?"
-            date="2023-11-15"
-            category="Literature"
-            isGlitchy={true}
-          />
-          <FeaturedPost
-            title="The Ethics of AI: Beyond the Binary"
-            excerpt="Moving past simplistic good/bad dichotomies in artificial intelligence discourse"
-            date="2023-10-30"
-            category="Philosophy"
-            isGlitchy={true}
-          />
+          {featuredPosts.map(post => (
+            <FeaturedPost 
+              key={post.id}
+              post={post}
+              isGlitchy={true}
+            />
+          ))}
         </div>
       </section>
 
@@ -86,8 +75,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="w-full">
-          <LatestDrop
-          />
+          <LatestDrops />
         </div>
       </section>
     </div>

@@ -22,6 +22,7 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    --red: 0 100% 50%;
   }
 
   .dark {
@@ -44,6 +45,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --red: 0 100% 45%;
   }
 }
 
@@ -322,6 +324,7 @@
     bottom: 0;
     border: 1px solid currentColor;
     animation: glitch-border 4s infinite;
+    pointer-events: none;
   }
 
   @keyframes glitch-border {
@@ -388,6 +391,60 @@
     100% {
       clip-path: inset(0 0 0 15%);
     }
+  }
+
+  /* Button hover animation */
+  @keyframes glitch-bg {
+    0% {
+      background-position: 0 0;
+      filter: hue-rotate(0deg);
+    }
+    10% {
+      background-position: -5px 0;
+    }
+    20% {
+      background-position: -3px 0;
+    }
+    30% {
+      background-position: 0 5px;
+      filter: hue-rotate(90deg);
+    }
+    40% {
+      background-position: -5px -10px;
+    }
+    50% {
+      background-position: 5px 10px;
+      filter: hue-rotate(180deg);
+    }
+    60% {
+      background-position: -10px 5px;
+    }
+    70% {
+      background-position: 10px -5px;
+    }
+    80% {
+      background-position: -5px 0;
+      filter: hue-rotate(270deg);
+    }
+    90% {
+      background-position: 0 10px;
+    }
+    100% {
+      background-position: 0 0;
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  .animate-glitch-bg {
+    animation: glitch-bg 500ms steps(1) infinite;
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 0, 0, 0.1),
+      rgba(0, 255, 255, 0.1) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+    background-size: 200% 200%;
   }
 }
 
