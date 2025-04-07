@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Digital Vanguard | Blog & Portfolio",
+  title: "The Coffee Loop | Blog & Portfolio",
   description: "A personal blog and portfolio at the intersection of technology and human experience",
 }
 

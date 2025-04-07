@@ -18,7 +18,7 @@ export default function Home() {
                 <span className="block glitch-item text-3xl" data-text="Luca Cevasco">
                   Luca Cevasco
                 </span>
-                <span className="block text-glitch">Digital Diary</span>
+                <span className="block text-glitch">The Coffee Loop</span>
               </h1>
               <p className="font-mono text-xl text-muted-foreground max-w-[700px] distort">
                 At the intersection of code and consciousness
