@@ -31,12 +31,6 @@ export const drops: Drop[] = [
   },
   {
     id: '3',
-    type: 'code',
-    date: 'April 6, 2025',
-    content: 'function consciousness() \n    return \'still a mystery\'\n'
-  },
-  {
-    id: '4',
     type: 'quote',
     date: 'April 6, 2025',
     content: 'The universe is not only stranger than we imagine, it is stranger than we can imagine.',
