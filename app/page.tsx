@@ -18,10 +18,10 @@ export default function Home() {
                 <span className="block glitch-item text-3xl" data-text="Luca Cevasco">
                   Luca Cevasco
                 </span>
-                <span className="block text-glitch">The Coffee Loop</span>
+                <span className="block text-glitch">The Loop</span>
               </h1>
               <p className="font-mono text-xl text-muted-foreground max-w-[700px] distort">
-                At the intersection of code and consciousness
+                code /// consciousness
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">

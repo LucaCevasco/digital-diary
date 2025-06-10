@@ -139,7 +139,7 @@ Footnote: I don’t usually post much here, but lately my studies of history alo
     date: '2024-11-14',
     categories: ['Technology', 'Thinking'],
     language: 'en',
-    imageUrl: '/images/posts/energy-liberator.webp',
+    imageUrl: '/images/posts/hellenic.webp',
     slug: 'energy-liberator-hellenistic-digital-era',
     featured: false
   },
@@ -201,7 +201,7 @@ No suelo publicar mucho por aca, pero últimamente mis estudios de historia en p
 
 // Helper function to get featured posts
 export const getFeaturedPosts = (): Post[] => {
-  return posts.filter(post => post.featured);
+  return posts.filter(post => post.featured).slice(0, 3);
 };
 
 // Helper function to get latest posts
