@@ -22,8 +22,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "The Coffee Loop | Blog & Portfolio",
-  description: "A personal blog and portfolio at the intersection of technology and human experience",
+  title: "The Loop | Blog & Portfolio",
+  description: "Technology and human experience",
 }
 
 export default function RootLayout({

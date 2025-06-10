@@ -141,7 +141,7 @@ Footnote: I don’t usually post much here, but lately my studies of history alo
     language: 'en',
     imageUrl: '/images/posts/hellenic.webp',
     slug: 'energy-liberator-hellenistic-digital-era',
-    featured: false
+    featured: true
   },
   {
     id: '4',
