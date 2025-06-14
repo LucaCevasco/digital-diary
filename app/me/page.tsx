@@ -115,7 +115,7 @@ export default function MePage() {
               <h3 className="font-playfair text-2xl font-bold distort">Mobile Developer</h3>
               <div className="font-mono text-sm text-muted-foreground">Settle Network - Ping • 2021 - 2022</div>
               <p>
-              Ping is an application that grants your own account in dollars, being able to use WIRE, exchange of cryptocurrencies in different blockchains and create invoices to your clients. My work is the development of an hybrid mobile app for Ping. Created documentation and guidelines for the mobile team, pushing the best practices (Functional coding, custom hooks, patterns, caching). Implementation of CI/CD proccess using github actions with a regular but stable deployment. Implement notifications and other critical native features.
+              Ping is an application that grants your own account in dollars, being able to use WIRE, exchange of cryptocurrencies in different blockchains and create invoices to your clients. My work is the development of an hybrid mobile app for Ping. Created documentation and guidelines for the mobile team, pushing the best practices (Functional coding, custom hooks, patterns, caching). Implementation of CI/CD process using github actions with a regular but stable deployment. Implement notifications and other critical native features.
               </p>
             </div>
             <div className="space-y-2">
