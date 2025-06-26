@@ -27,7 +27,7 @@ export const drops: Drop[] = [
     content: '',
     imageUrl: '/images/drops/biblioteca.jpg',
     imageAlt: 'Brutalist architecture',
-    caption: 'Brutalist architecture that reminds me of certain software architectures I\'ve worked with.'
+    caption: 'Brutalist architecture.'
   },
   {
     id: '3',
