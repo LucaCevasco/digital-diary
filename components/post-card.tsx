@@ -1,79 +1,63 @@
-'use client'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Image from "next/image"
 import { Post } from "@/content/posts"
-import { Badge } from "@/components/ui/badge"
-import { useRouter } from "next/navigation";
 
 interface PostCardProps {
-  post: Post;
-  isGlitchy?: boolean;
+  post: Post
+  isGlitchy?: boolean
 }
 
-export const PostCard = ({ post, isGlitchy = true }: PostCardProps) => {
-const router = useRouter();
-  // Helper to get language name and flag
-  const getLanguageInfo = (code: string) => {
-    switch (code) {
-      case 'en':
-        return { name: 'English', flag: '🇺🇸' };
-      case 'es':
-        return { name: 'Spanish', flag: '🇪🇸' };
-      default:
-        return { name: code.toUpperCase(), flag: '' };
-    }
-  };
+function isoDate(d: string) {
+  const parsed = new Date(d)
+  if (Number.isNaN(parsed.getTime())) return d
+  return parsed.toISOString().slice(0, 10)
+}
 
-  const language = getLanguageInfo(post.language);
-
+export const PostCard = ({ post }: PostCardProps) => {
   return (
-    <Card className={`overflow-hidden ${isGlitchy ? "glitch-border" : ""} flex flex-col h-full`}>
-      <CardHeader className="p-0">
-        <div className={`aspect-video w-full bg-muted ${isGlitchy ? "glitch-image scanline" : ""}`}>
-          {post.imageUrl && (
-            <img 
-              src={post.imageUrl} 
-              alt={post.title}
-              className="w-full h-full object-cover"
-            />
-          )}
+    <Link
+      href={`/blog/${post.slug}`}
+      className="group block border border-border bg-card hover:border-accent transition-colors focus-visible:outline-none focus-visible:border-accent focus-visible:ring-1 focus-visible:ring-accent"
+    >
+      {post.imageUrl && (
+        <div className="relative aspect-[3/2] overflow-hidden border-b border-border bg-background">
+          <Image
+            src={post.imageUrl}
+            alt={post.title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover grayscale contrast-110 group-hover:grayscale-0 transition-all duration-500"
+          />
         </div>
-      </CardHeader>
-      <CardContent className="p-6 flex-grow">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-wrap items-center gap-2 font-mono text-sm text-muted-foreground">
-              {post.categories.map((category, index) => (
-                <span key={index} className="bg-muted px-2 py-0.5 rounded text-xs">{category}</span>
-              ))}
-              <Badge variant="outline" className="ml-1">
-                {language.flag} {language.name}
-              </Badge>
-            </div>
-            <div className="font-mono text-sm text-muted-foreground">
-              {new Date(post.date).toLocaleDateString("en-US", { 
-                year: "numeric", 
-                month: "long", 
-                day: "numeric" 
-              })}
-            </div>
+      )}
+      <div className="p-4 space-y-3 font-mono">
+        <header className="flex items-baseline justify-between gap-2 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {post.categories.map((c, i) => (
+              <span key={i}>{c.toLowerCase()}</span>
+            ))}
+            <span className="opacity-40">·</span>
+            <span className="text-accent">{post.language}</span>
           </div>
-          <CardTitle className={`font-playfair text-2xl ${isGlitchy ? "distort" : ""}`}>
-            {post.title}
-          </CardTitle>
-          <p className="text-muted-foreground">{post.excerpt}</p>
+          <time className="tabular-nums shrink-0">{isoDate(post.date)}</time>
+        </header>
+
+        <h3 className="text-base md:text-lg font-medium leading-snug text-foreground group-hover:text-accent transition-colors">
+          {post.title}
+        </h3>
+
+        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+          {post.excerpt}
+        </p>
+
+        <div className="pt-2 text-xs flex items-center gap-1">
+          <span className="text-muted-foreground">$</span>
+          <span className="text-accent group-hover:underline underline-offset-4">
+            cat {post.slug}.md
+          </span>
+          <span className="text-muted-foreground opacity-60">↵</span>
         </div>
-      </CardContent>
-      <CardFooter className="p-6 pt-0 mt-auto">
-        <Button 
-          variant="outline" 
-          className="w-full font-mono transition-all hover:bg-red hover:text-primary-foreground hover:shadow-[0_0_8px_rgb(255,0,0,0.7)] hover:border-red hover:scale-[1.02] active:scale-[0.98] relative group overflow-hidden"
-          onClick={() => router.push(`/blog/${post.slug}`)}
-        >
-          <span className="relative z-10 group-hover:text-glitch">Read Article</span>
-          <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 group-hover:animate-glitch-bg"></span>
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-}; 
+      </div>
+    </Link>
+  )
+}

@@ -1,188 +1,126 @@
-'use client'
+"use client"
+
+import * as React from "react"
 import { PostCard } from "@/components/post-card"
 import { posts, PostCategory, PostLanguage } from "@/content/posts"
-import { useState } from "react"
+import { cn } from "@/lib/utils"
+
+type CategoryFilter = PostCategory | "all"
+type LanguageFilter = PostLanguage | "all"
 
 export default function BlogPage() {
-  // Set up state for filters
-  const [categoryFilter, setCategoryFilter] = useState<PostCategory | 'all'>('all');
-  const [languageFilter, setLanguageFilter] = useState<PostLanguage | 'all'>('all');
-  
-  // Get filtered posts
-  const filteredPosts = posts.filter(post => {
-    // Filter by category
-    if (categoryFilter !== 'all' && !post.categories.includes(categoryFilter)) {
-      return false;
-    }
-    
-    // Filter by language
-    if (languageFilter !== 'all' && post.language !== languageFilter) {
-      return false;
-    }
-    
-    return true;
-  });
+  const [category, setCategory] = React.useState<CategoryFilter>("all")
+  const [language, setLanguage] = React.useState<LanguageFilter>("all")
 
-  // Helper function to render posts or empty message
-  const renderPosts = (postsList: typeof posts) => {
-    if (postsList.length === 0) {
-      return (
-        <div className="col-span-full py-10 text-center">
-          <p className="font-mono text-muted-foreground">No posts match your filters. Try adjusting your selection.</p>
-        </div>
-      );
-    }
+  const categories = React.useMemo<CategoryFilter[]>(() => {
+    const set = new Set<PostCategory>()
+    posts.forEach(p => p.categories.forEach(c => set.add(c)))
+    return ["all", ...Array.from(set)]
+  }, [])
 
-    return postsList.map((post) => (
-      <PostCard 
-        key={post.id} 
-        post={post} 
-        isGlitchy
-      />
-    ));
-  };
+  const languages = React.useMemo<LanguageFilter[]>(() => {
+    const set = new Set<PostLanguage>()
+    posts.forEach(p => set.add(p.language))
+    return ["all", ...Array.from(set)]
+  }, [])
+
+  const filtered = React.useMemo(() => {
+    return posts.filter(p => {
+      if (category !== "all" && !p.categories.includes(category)) return false
+      if (language !== "all" && p.language !== language) return false
+      return true
+    })
+  }, [category, language])
+
+  const categoryCount = (c: CategoryFilter) =>
+    c === "all" ? posts.length : posts.filter(p => p.categories.includes(c)).length
+  const languageCount = (l: LanguageFilter) =>
+    l === "all" ? posts.length : posts.filter(p => p.language === l).length
 
   return (
-    <div className="w-full px-4 md:px-6 py-10 md:py-16 space-y-8 noise">
-      <div className="space-y-4 max-w-[1400px] mx-auto">
-        <h1 className="font-playfair text-4xl font-bold tracking-tighter sm:text-5xl glitch-item" data-text="Blog">
-          Blog
-        </h1>
-        <p className="font-mono text-xl text-muted-foreground max-w-[700px] distort">
-          Long-form explorations at the intersection of technology, philosophy, and human experience.
+    <div className="w-full px-4 md:px-6 max-w-[1400px] mx-auto py-12 md:py-16">
+      <header className="space-y-3 mb-10">
+        <p className="font-mono text-xs text-muted-foreground">
+          <span className="text-accent">$</span> ls ~/loop/posts
         </p>
+        <h1 className="font-mono text-4xl md:text-5xl font-medium lowercase tracking-tight">
+          blog
+        </h1>
+        <p className="font-mono text-sm text-muted-foreground max-w-[60ch] leading-relaxed">
+          long-form explorations of technology, philosophy, and human experience.
+        </p>
+      </header>
+
+      <div className="status-rule mb-4">
+        <span>── filter</span>
+        <span className="text-muted-foreground whitespace-nowrap">
+          {filtered.length} / {posts.length} posts
+        </span>
       </div>
 
-      <div className="max-w-[1400px] mx-auto space-y-8">
-        {/* Filters */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <h2 className="font-playfair text-xl font-bold">Filter by Category</h2>
-            <div className="flex flex-wrap gap-2">
-              <button 
-                onClick={() => setCategoryFilter('all')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  categoryFilter === 'all' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                All
-              </button>
-              <button 
-                onClick={() => setCategoryFilter('Technology')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  categoryFilter === 'Technology' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                Technology
-              </button>
-              <button 
-                onClick={() => setCategoryFilter('Thinking')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  categoryFilter === 'Thinking' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                Thinking
-              </button>
-              <button 
-                onClick={() => setCategoryFilter('Literature')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  categoryFilter === 'Literature' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                Literature
-              </button>
-              <button 
-                onClick={() => setCategoryFilter('Lifestyle')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  categoryFilter === 'Lifestyle' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                Lifestyle
-              </button>
-            </div>
+      <div className="grid md:grid-cols-2 gap-x-8 gap-y-6 mb-10 font-mono text-sm">
+        <fieldset className="space-y-2">
+          <legend className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">category</legend>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            {categories.map(c => {
+              const active = c === category
+              return (
+                <button
+                  key={c}
+                  onClick={() => setCategory(c)}
+                  aria-pressed={active}
+                  className={cn(
+                    "transition-colors py-0.5 inline-flex items-baseline gap-1.5",
+                    active ? "text-accent" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  [{active ? "x" : " "}] {c.toString().toLowerCase()}
+                  <span className="opacity-50 text-xs">({categoryCount(c)})</span>
+                </button>
+              )
+            })}
           </div>
+        </fieldset>
 
-          <div className="space-y-2">
-            <h2 className="font-playfair text-xl font-bold">Filter by Language</h2>
-            <div className="flex flex-wrap gap-2">
-              <button 
-                onClick={() => setLanguageFilter('all')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  languageFilter === 'all' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                All Languages
-              </button>
-              <button 
-                onClick={() => setLanguageFilter('en')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  languageFilter === 'en' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                🇺🇸 English
-              </button>
-              <button 
-                onClick={() => setLanguageFilter('es')}
-                className={`px-3 py-1 font-mono text-sm rounded-md transition-colors ${
-                  languageFilter === 'es' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-primary/20'
-                }`}
-              >
-                🇪🇸 Spanish
-              </button>
-            </div>
+        <fieldset className="space-y-2">
+          <legend className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">language</legend>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            {languages.map(l => {
+              const active = l === language
+              return (
+                <button
+                  key={l}
+                  onClick={() => setLanguage(l)}
+                  aria-pressed={active}
+                  className={cn(
+                    "transition-colors py-0.5 inline-flex items-baseline gap-1.5",
+                    active ? "text-accent" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  [{active ? "x" : " "}] {l}
+                  <span className="opacity-50 text-xs">({languageCount(l)})</span>
+                </button>
+              )
+            })}
           </div>
-        </div>
+        </fieldset>
+      </div>
 
-        {/* Active Filters Display */}
-        <div className="font-mono text-sm text-muted-foreground">
-          {categoryFilter !== 'all' || languageFilter !== 'all' ? (
-            <div className="flex items-center gap-2">
-              <span>Active filters:</span>
-              {categoryFilter !== 'all' && (
-                <span className="bg-muted px-2 py-1 rounded">Category: {categoryFilter}</span>
-              )}
-              {languageFilter !== 'all' && (
-                <span className="bg-muted px-2 py-1 rounded">
-                  Language: {languageFilter === 'en' ? '🇺🇸 English' : '🇪🇸 Spanish'}
-                </span>
-              )}
-              <button 
-                onClick={() => {
-                  setCategoryFilter('all');
-                  setLanguageFilter('all');
-                }}
-                className="underline ml-2"
-              >
-                Clear all
-              </button>
-            </div>
-          ) : (
-            <span>Showing all posts</span>
-          )}
-        </div>
-
-        {/* Results */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {renderPosts(filteredPosts)}
-        </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+        {filtered.length === 0 ? (
+          <div className="col-span-full border border-border py-10 text-center font-mono text-sm text-muted-foreground">
+            <p>no posts match.</p>
+            <button
+              onClick={() => { setCategory("all"); setLanguage("all") }}
+              className="mt-3 text-accent hover:underline underline-offset-4"
+            >
+              $ reset filters ↵
+            </button>
+          </div>
+        ) : (
+          filtered.map(p => <PostCard key={p.id} post={p} />)
+        )}
       </div>
     </div>
   )
 }
-

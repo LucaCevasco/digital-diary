@@ -1,480 +1,225 @@
 @import "tailwindcss";
 
+/*
+ * Palette: Tokyo Night (dark) + Tokyo Day (light)
+ * One accent: terminal green. Hard 1px borders. Sharp corners.
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-    --red: 0 100% 50%;
+    /* Tokyo Day */
+    --background: 220 23% 95%;
+    --foreground: 234 16% 35%;
+    --card: 220 22% 92%;
+    --card-foreground: 234 16% 35%;
+    --popover: 220 23% 95%;
+    --popover-foreground: 234 16% 35%;
+    --primary: 234 16% 35%;
+    --primary-foreground: 220 23% 95%;
+    --secondary: 220 20% 88%;
+    --secondary-foreground: 234 16% 35%;
+    --muted: 220 20% 88%;
+    --muted-foreground: 233 13% 50%;
+    --accent: 109 58% 40%;
+    --accent-foreground: 220 23% 95%;
+    --destructive: 350 65% 50%;
+    --destructive-foreground: 220 23% 95%;
+    --border: 233 15% 78%;
+    --input: 233 15% 78%;
+    --ring: 109 58% 40%;
+    --radius: 0px;
+    --red: 350 65% 50%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --red: 0 100% 45%;
+    /* Tokyo Night */
+    --background: 235 19% 11%;       /* #16161e */
+    --foreground: 229 76% 86%;       /* #c0caf5 */
+    --card: 232 17% 14%;             /* #1a1b26 */
+    --card-foreground: 229 76% 86%;
+    --popover: 232 17% 14%;
+    --popover-foreground: 229 76% 86%;
+    --primary: 229 76% 86%;
+    --primary-foreground: 235 19% 11%;
+    --secondary: 229 25% 17%;        /* #1f2335 */
+    --secondary-foreground: 229 76% 86%;
+    --muted: 229 25% 17%;
+    --muted-foreground: 228 23% 56%; /* #565f89 lifted */
+    --accent: 95 38% 62%;            /* #9ece6a — terminal green */
+    --accent-foreground: 235 19% 11%;
+    --destructive: 350 87% 71%;      /* #f7768e */
+    --destructive-foreground: 235 19% 11%;
+    --border: 229 25% 22%;           /* #292e42 */
+    --input: 229 25% 22%;
+    --ring: 95 38% 62%;
+    --red: 350 87% 71%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html,
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Selection in accent */
+  ::selection {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 }
 
 @layer base {
   .font-sans {
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01";
   }
 
-  .font-mono {
-    font-family: var(--font-space-mono), ui-monospace, monospace;
-  }
-
+  .font-mono,
   .font-playfair {
-    font-family: var(--font-playfair), ui-serif, Georgia, Cambria, serif;
+    font-family: var(--font-geist-mono), ui-monospace, "JetBrains Mono",
+      "SF Mono", Menlo, monospace;
+    font-feature-settings: "calt", "ss01", "zero";
+  }
+
+  body {
+    font-family: var(--font-geist-mono), ui-monospace, "JetBrains Mono",
+      "SF Mono", Menlo, monospace;
   }
 }
 
-/* Scientific grid pattern */
-.grid-pattern {
-  background-image: linear-gradient(to right, rgba(var(--foreground), 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(var(--foreground), 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Enhanced Experimental typography and glitch effects */
+/*
+ * TUI utilities: status rules, caret, keyboard hints, dotted gutters
+ */
 @layer utilities {
-  .text-glitch {
-    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0
-      rgba(0, 0, 255, 0.75);
-    animation: glitch 500ms infinite;
-  }
-
-  .glitch-container {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glitch-item {
-    position: relative;
-  }
-
-  .glitch-item::before,
-  .glitch-item::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
+  /* ── section ─────────────────── view all → */
+  .status-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     width: 100%;
-    height: 100%;
-    background: inherit;
+    color: hsl(var(--muted-foreground));
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.875rem;
   }
-
-  .glitch-item::before {
-    left: 2px;
-    text-shadow: -1px 0 #00ffff;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  }
-
-  .glitch-item::after {
-    left: -2px;
-    text-shadow: 1px 0 #ff00ff;
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-  }
-
-  @keyframes glitch-anim-1 {
-    0% {
-      clip-path: polygon(0 0, 100% 0, 100% 25%, 0 25%);
-    }
-    20% {
-      clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
-    }
-    40% {
-      clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%);
-    }
-    60% {
-      clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%);
-    }
-    80% {
-      clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%);
-    }
-    100% {
-      clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
-    }
-  }
-
-  @keyframes glitch-anim-2 {
-    0% {
-      clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
-    }
-    20% {
-      clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%);
-    }
-    40% {
-      clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%);
-    }
-    60% {
-      clip-path: polygon(0 30%, 100% 30%, 100% 45%, 0 45%);
-    }
-    80% {
-      clip-path: polygon(0 45%, 100% 45%, 100% 60%, 0 60%);
-    }
-    100% {
-      clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
-    }
-  }
-
-  @keyframes glitch {
-    0% {
-      text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    14% {
-      text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    15% {
-      text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    49% {
-      text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    50% {
-      text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    99% {
-      text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-    100% {
-      text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0
-        rgba(0, 0, 255, 0.75);
-    }
-  }
-
-  /* Noise effect */
-  .noise {
-    position: relative;
-  }
-
-  .noise::before {
+  .status-rule::before,
+  .status-rule::after {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 10;
+    flex: 1;
+    border-top: 1px solid hsl(var(--border));
+  }
+  .status-rule::before {
+    flex: 0 0 1.5rem;
   }
 
-  /* Glitch image effect */
-  .glitch-image {
-    position: relative;
-    overflow: hidden;
+  /* Hard 1px frame, no radius, no shadow */
+  .tui-frame {
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    transition: border-color 150ms ease, background-color 150ms ease;
+  }
+  .tui-frame:hover,
+  .tui-frame:focus-within {
+    border-color: hsl(var(--accent));
   }
 
-  .glitch-image::before,
-  .glitch-image::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .glitch-image::before {
-    left: 2px;
-    background-color: rgba(255, 0, 255, 0.2);
-    animation: glitch-image-1 2.5s infinite linear alternate-reverse;
-  }
-
-  .glitch-image::after {
-    left: -2px;
-    background-color: rgba(0, 255, 255, 0.2);
-    animation: glitch-image-2 3s infinite linear alternate-reverse;
-  }
-
-  @keyframes glitch-image-1 {
-    0%,
-    100% {
-      transform: translateX(-2px);
-    }
-    50% {
-      transform: translateX(2px);
-    }
-  }
-
-  @keyframes glitch-image-2 {
-    0%,
-    100% {
-      transform: translateX(2px);
-    }
-    50% {
-      transform: translateX(-2px);
-    }
-  }
-
-  /* Scanline effect */
-  .scanline {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scanline::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 50%);
-    background-size: 100% 4px;
-    animation: scanline 0.5s linear infinite;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  @keyframes scanline {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(4px);
-    }
-  }
-
-  /* Distorted text */
-  .distort {
-    display: inline-block;
-    animation: distort 5s infinite alternate;
-  }
-
-  @keyframes distort {
-    0% {
-      transform: skew(0deg, 0deg);
-    }
-    20% {
-      transform: skew(1deg, 1deg);
-    }
-    40% {
-      transform: skew(-1deg, -1deg);
-    }
-    60% {
-      transform: skew(2deg, -1deg);
-    }
-    80% {
-      transform: skew(-2deg, 1deg);
-    }
-    100% {
-      transform: skew(0deg, 0deg);
-    }
-  }
-
-  /* Glitchy border */
-  .glitch-border {
-    position: relative;
-  }
-
-  .glitch-border::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1px solid currentColor;
-    animation: glitch-border 4s infinite;
-    pointer-events: none;
-  }
-
-  @keyframes glitch-border {
-    0% {
-      clip-path: inset(0 0 0 0);
-    }
-    5% {
-      clip-path: inset(30% 0 0 0);
-    }
-    10% {
-      clip-path: inset(0 10% 0 0);
-    }
-    15% {
-      clip-path: inset(0 0 10% 0);
-    }
-    20% {
-      clip-path: inset(0 0 0 30%);
-    }
-    25% {
-      clip-path: inset(10% 10% 0 0);
-    }
-    30% {
-      clip-path: inset(0 10% 10% 0);
-    }
-    35% {
-      clip-path: inset(0 0 10% 10%);
-    }
-    40% {
-      clip-path: inset(10% 0 0 10%);
-    }
-    45% {
-      clip-path: inset(20% 0 0 0);
-    }
-    50% {
-      clip-path: inset(0 20% 0 0);
-    }
-    55% {
-      clip-path: inset(0 0 20% 0);
-    }
-    60% {
-      clip-path: inset(0 0 0 20%);
-    }
-    65% {
-      clip-path: inset(5% 5% 0 0);
-    }
-    70% {
-      clip-path: inset(0 5% 5% 0);
-    }
-    75% {
-      clip-path: inset(0 0 5% 5%);
-    }
-    80% {
-      clip-path: inset(5% 0 0 5%);
-    }
-    85% {
-      clip-path: inset(15% 0 0 0);
-    }
-    90% {
-      clip-path: inset(0 15% 0 0);
-    }
-    95% {
-      clip-path: inset(0 0 15% 0);
-    }
-    100% {
-      clip-path: inset(0 0 0 15%);
-    }
-  }
-
-  /* Button hover animation */
-  @keyframes glitch-bg {
-    0% {
-      background-position: 0 0;
-      filter: hue-rotate(0deg);
-    }
-    10% {
-      background-position: -5px 0;
-    }
-    20% {
-      background-position: -3px 0;
-    }
-    30% {
-      background-position: 0 5px;
-      filter: hue-rotate(90deg);
-    }
-    40% {
-      background-position: -5px -10px;
-    }
-    50% {
-      background-position: 5px 10px;
-      filter: hue-rotate(180deg);
-    }
-    60% {
-      background-position: -10px 5px;
-    }
-    70% {
-      background-position: 10px -5px;
-    }
-    80% {
-      background-position: -5px 0;
-      filter: hue-rotate(270deg);
-    }
-    90% {
-      background-position: 0 10px;
-    }
-    100% {
-      background-position: 0 0;
-      filter: hue-rotate(360deg);
-    }
-  }
-
-  .animate-glitch-bg {
-    animation: glitch-bg 500ms steps(1) infinite;
-    background-image: repeating-linear-gradient(
-      45deg,
-      rgba(255, 0, 0, 0.1),
-      rgba(0, 255, 255, 0.1) 10px,
-      transparent 10px,
-      transparent 20px
+  /* Subtle dotted background — replaces grid-pattern */
+  .grid-pattern {
+    background-image: radial-gradient(
+      hsl(var(--border)) 1px,
+      transparent 1px
     );
-    background-size: 200% 200%;
+    background-size: 16px 16px;
+  }
+
+  /* Blinking block caret */
+  .caret::after {
+    content: "▌";
+    display: inline-block;
+    margin-left: 0.1em;
+    color: hsl(var(--accent));
+    animation: caret-blink 1.1s steps(2, start) infinite;
+  }
+  @keyframes caret-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Keyboard hint [x] — used in nav and CTAs */
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    color: hsl(var(--muted-foreground));
+    font-family: var(--font-geist-mono), monospace;
+  }
+  .kbd > b {
+    color: hsl(var(--accent));
+    font-weight: 500;
+  }
+  .kbd[data-active="true"] {
+    color: hsl(var(--accent-foreground));
+    background-color: hsl(var(--accent));
+  }
+  .kbd[data-active="true"] > b {
+    color: hsl(var(--accent-foreground));
+  }
+
+  /* Inline command prompt: $ cat post.md ↵ */
+  .cmd {
+    font-family: var(--font-geist-mono), monospace;
+    color: hsl(var(--accent));
+  }
+  .cmd::before {
+    content: "$ ";
+    color: hsl(var(--muted-foreground));
   }
 }
 
-/* Fix for container width */
+/*
+ * Legacy glitch classes — neutralized to no-ops so existing components keep
+ * rendering until they're rewritten. No infinite motion anywhere.
+ */
+@layer utilities {
+  .text-glitch { color: inherit; text-shadow: none; }
+  .glitch-container { position: relative; }
+  .glitch-item { position: relative; }
+  .glitch-item::before,
+  .glitch-item::after { content: none; }
+  .glitch-border { position: relative; }
+  .glitch-border::before { content: none; }
+  .glitch-image::before,
+  .glitch-image::after { content: none; }
+  .scanline::after { content: none; }
+  .distort { transform: none; animation: none; }
+  .noise::before { content: none; }
+  .animate-glitch-bg { animation: none; background-image: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .caret::after {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Container width fix (was clamped to 1280, we use 1400 site-wide) */
 .container {
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
-
-@media (min-width: 640px) {
-  .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+@media (min-width: 768px) {
+  .container { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
-
-@media (min-width: 1024px) {
-  .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    max-width: 1400px;
-  }
-}
-
