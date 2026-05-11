@@ -15,11 +15,15 @@ const contacts: Contact[] = [
 
 const experience: Job[] = [
   {
-    from: "2022", to: "now", org: "rather labs", role: "blockchain & fullstack",
+    from: "2025", to: "now", org: "globalstake", role: "software engineer",
+    body: "Bare-metal staking crypto platform. Building consumer-facing product surfaces. Remote.",
+  },
+  {
+    from: "2022", to: "2025", org: "rather labs", role: "blockchain & fullstack",
     body: "Versatile engineer across projects of all sizes. Continuous product improvement, sales engineering on AI projects, technical scoping & estimation.",
   },
   {
-    from: "2022", to: "now", org: "transcribeme", role: "fullstack (1M+ users)",
+    from: "2022", to: "2025", org: "transcribeme", role: "fullstack (1M+ users)",
     body: "WhatsApp & Telegram transcription bot, AI summarization, TranscribeGo checkout & integrations. 2023 LaNacion + VISA innovation prize.",
   },
   {

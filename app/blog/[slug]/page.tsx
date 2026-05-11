@@ -21,6 +21,9 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
+  // Strip a leading H1 from the markdown body — the page already renders the title.
+  const body = post.content.replace(/^\s*#\s+[^\n]+\n+/, "")
+
   return (
     <div className="w-full px-4 md:px-6 max-w-[800px] mx-auto py-10 md:py-16 font-mono">
       {/* Breadcrumb */}
@@ -66,9 +69,97 @@ export default async function BlogPostPage({ params }: PageProps) {
       </p>
 
       {/* Body */}
-      <article className="prose prose-neutral dark:prose-invert max-w-none font-sans prose-headings:font-mono prose-headings:tracking-tight prose-headings:font-medium prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h2:border-l-2 prose-h2:border-accent prose-h2:pl-3 prose-h2:not-italic prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4 prose-code:before:content-none prose-code:after:content-none prose-code:bg-card prose-code:px-1 prose-code:py-0.5 prose-code:text-sm prose-pre:bg-card prose-pre:border prose-pre:border-border prose-blockquote:border-l-2 prose-blockquote:border-accent prose-blockquote:not-italic prose-blockquote:text-muted-foreground">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {post.content}
+      <article className="font-sans text-[15px] leading-[1.75] text-foreground/90">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            h1: ({ children }) => (
+              <h1 className="font-mono text-2xl md:text-3xl font-medium tracking-tight mt-12 mb-4 text-foreground">
+                {children}
+              </h1>
+            ),
+            h2: ({ children }) => (
+              <h2 className="font-mono text-xl md:text-2xl font-medium tracking-tight mt-10 mb-3 pl-3 border-l-2 border-accent text-foreground">
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="font-mono text-lg font-medium tracking-tight mt-8 mb-2 text-foreground">
+                <span className="text-accent">## </span>
+                {children}
+              </h3>
+            ),
+            h4: ({ children }) => (
+              <h4 className="font-mono text-base font-medium tracking-tight mt-6 mb-2 text-foreground">
+                <span className="text-accent">### </span>
+                {children}
+              </h4>
+            ),
+            p: ({ children }) => (
+              <p className="mb-5">{children}</p>
+            ),
+            a: ({ href, children }) => (
+              <a
+                href={href}
+                target={href?.startsWith("http") ? "_blank" : undefined}
+                rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent transition-colors"
+              >
+                {children}
+              </a>
+            ),
+            ul: ({ children }) => (
+              <ul className="list-none pl-0 mb-5 space-y-1.5">{children}</ul>
+            ),
+            ol: ({ children }) => (
+              <ol className="list-decimal pl-6 mb-5 space-y-1.5 marker:text-accent marker:font-mono">{children}</ol>
+            ),
+            li: ({ children }) => (
+              <li className="pl-5 relative before:content-['—'] before:absolute before:left-0 before:text-accent font-sans">
+                {children}
+              </li>
+            ),
+            blockquote: ({ children }) => (
+              <blockquote className="border-l-2 border-accent pl-4 my-6 text-muted-foreground italic">
+                {children}
+              </blockquote>
+            ),
+            code: ({ className, children, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string }) => {
+              const isBlock = className?.startsWith("language-")
+              if (isBlock) {
+                return (
+                  <code className="font-mono text-[13px]" {...props}>
+                    {children}
+                  </code>
+                )
+              }
+              return (
+                <code className="font-mono text-[0.9em] bg-card border border-border px-1 py-0.5 text-accent" {...props}>
+                  {children}
+                </code>
+              )
+            },
+            pre: ({ children }) => (
+              <pre className="font-mono text-[13px] bg-card border border-border p-4 my-5 overflow-x-auto leading-relaxed">
+                {children}
+              </pre>
+            ),
+            hr: () => (
+              <hr className="my-8 border-0 border-t border-border" />
+            ),
+            strong: ({ children }) => (
+              <strong className="font-semibold text-foreground">{children}</strong>
+            ),
+            em: ({ children }) => (
+              <em className="italic">{children}</em>
+            ),
+            img: (props) => (
+              // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+              <img {...props} className="my-6 border border-border max-w-full h-auto" />
+            ),
+          }}
+        >
+          {body}
         </ReactMarkdown>
       </article>
 
