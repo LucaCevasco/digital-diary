@@ -16,8 +16,8 @@ const routes: Route[] = [
 ]
 
 function breadcrumb(pathname: string) {
-  if (pathname === "/") return "~/loop"
-  return `~/loop${pathname}`
+  if (pathname === "/") return "~/tlzip"
+  return `~/tlzip${pathname}`
 }
 
 export default function Navigation() {

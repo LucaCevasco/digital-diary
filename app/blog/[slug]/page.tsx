@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           ← ls ../
         </Link>
         <span className="mx-2 opacity-40">·</span>
-        <span>~/loop/posts/{post.slug}.md</span>
+        <span>~/tlzip/posts/{post.slug}.md</span>
       </nav>
 
       {/* Hero image */}

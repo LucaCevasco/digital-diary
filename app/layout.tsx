@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "loop",
+  title: "tlzip",
   description: "a feed of half-formed ideas - technology and human experience.",
 }
 
@@ -39,7 +39,7 @@ export default function RootLayout({
                 <span className="text-accent">●</span>
                 <span>NORMAL</span>
                 <span className="opacity-40">·</span>
-                <span>~/loop</span>
+                <span>~/tlzip</span>
                 <span className="opacity-40">·</span>
                 <span>UTF-8</span>
                 <span className="opacity-40">·</span>

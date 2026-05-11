@@ -15,7 +15,7 @@ export default function Home() {
             <span className="text-accent">$</span> whoami
           </p>
           <h1 className="font-mono text-5xl sm:text-6xl md:text-7xl font-medium tracking-tight lowercase">
-            <span className="caret">loop</span>
+            <span className="caret">tlzip</span>
           </h1>
           <p className="font-mono text-base md:text-lg text-muted-foreground max-w-[60ch] leading-relaxed">
             a feed of half-formed ideas - technology and human experience. notes by{" "}
@@ -56,7 +56,7 @@ export default function Home() {
         <aside className="hidden lg:block font-mono text-xs text-muted-foreground border border-border p-4 min-w-[240px] space-y-1">
           <div className="flex justify-between gap-4">
             <span className="opacity-60">host</span>
-            <span>loop.local</span>
+            <span>tlzip.local</span>
           </div>
           <div className="flex justify-between gap-4">
             <span className="opacity-60">posts</span>

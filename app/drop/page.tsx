@@ -27,7 +27,7 @@ export default function DropPage() {
     <div className="w-full px-4 md:px-6 max-w-[1400px] mx-auto py-12 md:py-16">
       <header className="space-y-3 mb-10">
         <p className="font-mono text-xs text-muted-foreground">
-          <span className="text-accent">$</span> tail -f ~/loop/feed
+          <span className="text-accent">$</span> tail -f ~/tlzip/feed
         </p>
         <h1 className="font-mono text-4xl md:text-5xl font-medium lowercase tracking-tight">
           drop
