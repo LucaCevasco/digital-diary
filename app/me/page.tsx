@@ -3,7 +3,7 @@ import Link from "next/link"
 
 type Contact = { key: string; label: string; href: string; external?: boolean }
 type Job = { from: string; to: string; org: string; role: string; body: string }
-type Project = { name: string; stack: string; body: string }
+type Project = { name: string; stack: string; body: string; href?: string }
 
 const contacts: Contact[] = [
   { key: "github   ", label: "LucaCevasco", href: "https://github.com/LucaCevasco", external: true },
@@ -63,6 +63,7 @@ const academic = [
 ]
 
 const projects: Project[] = [
+  { name: "silk monad", stack: "Minecraft · Mineflayer · viem · Solidity · Monad", body: "Silk Road simulation in Minecraft: fully autonomous LLM merchant agents negotiate in character and settle real ERC-20 trades (SPICE/SILK/JADE) on Monad testnet in real time. Open source, playable demo server.", href: "https://github.com/zero-point-module/silk-monad" },
   { name: "tao-bridge", stack: "MultiversX · Bittensor", body: "First bridge between Bittensor and MultiversX. wTAO exposure with seamless TAO bridging." },
   { name: "transcribeme / transcribego", stack: "Next.js · Python · AWS Lambda · MongoDB", body: "WhatsApp & Telegram voice-note transcription bot, 1M+ users. Serverless checkout + AI APIs." },
   { name: "ai fine-tuning · medical", stack: "Python · ML · Healthcare", body: "Fine-tuned model for Epicrisis generation in a medical center. Research + specialized training data." },
@@ -178,7 +179,18 @@ export default function MePage() {
           {projects.map((p, i) => (
             <li key={i} className="border border-border p-4 hover:border-accent transition-colors">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <span className="text-foreground">{p.name}</span>
+                {p.href ? (
+                  <Link
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline underline-offset-4"
+                  >
+                    {p.name}
+                  </Link>
+                ) : (
+                  <span className="text-foreground">{p.name}</span>
+                )}
                 <span className="text-xs text-muted-foreground">{p.stack}</span>
               </div>
               <p className="text-muted-foreground leading-relaxed mt-2">{p.body}</p>
