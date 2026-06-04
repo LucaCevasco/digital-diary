@@ -25,11 +25,13 @@ export default function BlogPage() {
   }, [])
 
   const filtered = React.useMemo(() => {
-    return posts.filter(p => {
-      if (category !== "all" && !p.categories.includes(category)) return false
-      if (language !== "all" && p.language !== language) return false
-      return true
-    })
+    return posts
+      .filter(p => {
+        if (category !== "all" && !p.categories.includes(category)) return false
+        if (language !== "all" && p.language !== language) return false
+        return true
+      })
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }, [category, language])
 
   const categoryCount = (c: CategoryFilter) =>
