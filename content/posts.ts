@@ -196,6 +196,28 @@ No suelo publicar mucho por aca, pero últimamente mis estudios de historia en p
     imageUrl: '/images/posts/hellenic.webp',
     slug: 'energia-liberadora-mundo-helenistico-era-digital',
     featured: false
+  },
+  {
+    id: '5',
+    title: 'El fin de la eternidad: por qué los viajes en el tiempo necesitan una realidad invariable',
+    excerpt: 'Una reflexión a partir de la novela de Isaac Asimov sobre cómo los viajes en el tiempo solo serían posibles si se disparan desde un punto de realidad invariable, lejos de la entropía de las realidades infinitas',
+    content: `*El fin de la eternidad*, de Isaac Asimov, cuenta cómo un mundo desarrolla una realidad invariable dentro de un campo temporal y, desde ese contexto, modifica las realidades variables de distintos siglos para manejar y generar cambios dentro de las sociedades.
+
+Me parece muy interesante, y me hizo pensar en cómo los viajes en el tiempo solamente podrían ser posibles si existen realidades temporales variables: realidades de tiempo que puedan ser modificadas y que generen distintas realidades, ya sean distintas líneas, superposiciones o reemplazos/sustituciones de esas realidades.
+
+Por lo tanto, lo más interesante de la novela es la idea de la Eternidad como un submundo con realidad variable dentro de un campo temporal: un espacio separado y resguardado que permite, como si se actuara desde afuera, modificar esas realidades variables.
+
+La conclusión a la que esto me hace llegar es que, para que existan los viajes en el tiempo, necesariamente deben dispararse desde una realidad invariable.
+
+Porque, si las realidades son realmente variables, el viaje en el tiempo podría pisar la realidad y generar una bifurcación de los caminos. El problema con esto es que, si eso sucede, en un tiempo infinito habría cambios infinitos (ya que dado el suficiente tiempo todas las acciones podrían suceder) y, por lo tanto, realidades infinitas pisándose a sí mismas. Eso sería un caos en el que cada instante sería solamente un momento, una ilusión de la mente, pero nunca realmente una realidad continua por sí misma. Cada futuro y pasado sería falso con infinitos presentes viviéndose eternamente, sin ningún rumbo lógico.
+
+Entonces, la única forma en que estos viajes en el tiempo serían posibles, sin caer en una entropía máxima que evite la propia existencia, sería si se manejan desde puntos de realidad invariable, como el campo temporal que aparece en *El fin de la eternidad*. Eso evitaría que futuros viajeros del tiempo cambien una realidad actual de forma infinita, impidiendo un desarrollo fisio-temporal que coincida con "una cantidad de líneas" temporales imaginable.`,
+    date: '2026-06-03',
+    categories: ['Literature', 'Thinking'],
+    language: 'es',
+    imageUrl: '/images/posts/eternidad-asimov.webp',
+    slug: 'fin-de-la-eternidad-asimov-viajes-tiempo',
+    featured: true
   }
 ];
 
